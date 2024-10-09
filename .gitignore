@@ -1,0 +1,14 @@
+# .gitignore
+
+# Ignorar archivos de Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# Ignorar archivo con variables sensibles
+terraform.tfvars
+.env
+aws-keypair.pem
+terraform.lock.hcl
