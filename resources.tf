@@ -63,7 +63,7 @@ resource "aws_instance" "jenkins" {
       "export ANSIBLE_HOST_KEY_CHECKING=False",
       "ansible-playbook /home/ubuntu/jenkins.yml",
       "ansible-playbook /home/ubuntu/docker.yml",
-      "ansible-playbook /home/ubuntu/sonarqube.yml",
+      //"ansible-playbook /home/ubuntu/sonarqube.yml",
       "ansible-playbook /home/ubuntu/kubernetes_minikube.yml"
     ]
   }
