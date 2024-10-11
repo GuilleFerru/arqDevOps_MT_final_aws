@@ -1,11 +1,11 @@
-jenkins:
-  systemMessage: "Jenkins configurado automáticamente por Jenkins Configuration as Code plugin"
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-        - id: "admin"
-          password: "123"
+# jenkins:
+#   systemMessage: "Jenkins configurado automáticamente por Jenkins Configuration as Code plugin"
+#   securityRealm:
+#     local:
+#       allowsSignup: false
+#       users:
+#         - id: "admin"
+#           password: "123"
           
           
 # jobs:
@@ -18,3 +18,37 @@ jenkins:
 #               }
 #           }
 #       }
+
+jenkins:
+  systemMessage: "Jenkins configurado automáticamente por Jenkins Configuration as Code plugin"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "123"  
+  authorizationStrategy:
+    loggedInUsersCanDoAnything: true
+  jobs:
+    - script: >
+        multibranchPipelineJob('arqDevOps_MT_final_monolitica_multibranch') {
+          branchSources {
+            git {
+              remote('https://github.com/GuilleFerru/arqDevOps_MT_final_monolitica.git')
+              credentialsId('')
+              includes('*')  # Detecta todos los branches
+              extensions {}
+            }
+          }
+          factory {
+            workflowBranchProjectFactory {
+              scriptPath('Jenkinsfile')  # Ajusta esto si el archivo Jenkinsfile está en otra ruta
+            }
+          }
+          orphanedItemStrategy {
+            discardOldItems {
+              numToKeep(10)  # Número de builds a mantener por branch
+            }
+          }
+        }
+

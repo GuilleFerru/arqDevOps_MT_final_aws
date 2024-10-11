@@ -2,13 +2,13 @@ version: '3'
 
 services:
   sonarqube:
-    image: sonarqube:10.6.0-community
+    image: mc1arke/sonarqube-with-community-branch-plugin:10.6-community
     container_name: sonarqube
     environment:
       - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
       - SONAR_JDBC_USERNAME=sonar
       - SONAR_JDBC_PASSWORD=sonar
-      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true  # Desactivar las comprobaciones de bootstrap de Elasticsearch para contenedores pequeños
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true  # Desactivar comprobaciones de Elasticsearch
     ports:
       - "9000:9000"
     volumes:
