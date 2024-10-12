@@ -6,8 +6,7 @@
 #       users:
 #         - id: "admin"
 #           password: "123"
-          
-          
+
 # jobs:
 #   - script: >
 #       multibranchPipelineJob('petclinic-rest') {
@@ -23,32 +22,27 @@ jenkins:
   systemMessage: "Jenkins configurado automáticamente por Jenkins Configuration as Code plugin"
   securityRealm:
     local:
-      allowsSignup: false
       users:
         - id: "admin"
-          password: "123"  
-  authorizationStrategy:
-    loggedInUsersCanDoAnything: true
-  jobs:
-    - script: >
-        multibranchPipelineJob('arqDevOps_MT_final_monolitica_multibranch') {
-          branchSources {
-            git {
-              remote('https://github.com/GuilleFerru/arqDevOps_MT_final_monolitica.git')
-              credentialsId('')
-              includes('*')  # Detecta todos los branches
-              extensions {}
-            }
-          }
-          factory {
-            workflowBranchProjectFactory {
-              scriptPath('Jenkinsfile')  # Ajusta esto si el archivo Jenkinsfile está en otra ruta
-            }
-          }
-          orphanedItemStrategy {
-            discardOldItems {
-              numToKeep(10)  # Número de builds a mantener por branch
-            }
-          }
-        }
+          password: "123"
 
+  # jobs:
+  # - script: >
+  #     multibranchPipelineJob('arqDevOps_MT_final_monolitica_multibranch') {
+  #       branchSources {
+  #         github {
+  #           id('arqDevOps-MT-final')
+  #           scanCredentialsId('')
+  #           repoOwner('GuilleFerru')
+  #           repository('arqDevOps_MT_final_monolitica')
+  #         }
+  #       }
+  #       orphanedItemStrategy {
+  #         discardOldItems {
+  #           numToKeep(5)
+  #         }
+  #       }
+  #       triggers {
+  #         periodic(5)
+  #       }
+  #     }

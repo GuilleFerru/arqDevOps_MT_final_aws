@@ -73,7 +73,7 @@
 
     - name: Copy sonarqube.yml to the server
       copy:
-        src: sonarqube.yml # Ajusta la ruta si es necesario
+        src: sonarqube.yml
         dest: /home/ubuntu/sonarqube.yml
         mode: "0644"
 
@@ -82,11 +82,31 @@
       args:
         chdir: /home/ubuntu/
 
-    - name: Verify Docker Compose services
+    - name: Verify Docker Compose services for SonarQube
       command: docker-compose -f sonarqube.yml ps
       args:
         chdir: /home/ubuntu/
-      register: compose_status
+      register: sonarqube_status
+
+    - name: Copy artifactory.yml to the server
+      copy:
+        src: artifactory.yml
+        dest: /home/ubuntu/artifactory.yml
+        mode: '0644'
+
+    - name: Pull and start Docker Compose services using artifactory.yml
+      command: docker-compose -f artifactory.yml up -d
+      args:
+        chdir: /home/ubuntu/        
+
+    - name: Verify Docker Compose services for Artifactory
+      command: docker-compose -f artifactory.yml ps
+      args:
+        chdir: /home/ubuntu/
+      register: artifactory_status
 
     - debug:
-        msg: "{{ compose_status.stdout }}"
+        msg:
+          - "Artifactory status: {{ artifactory_status.stdout }}"
+          - "SonarQube status: {{ sonarqube_status.stdout }}"
+

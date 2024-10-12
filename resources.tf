@@ -51,6 +51,11 @@ resource "aws_instance" "jenkins" {
     destination = "/home/ubuntu/sonarqube.yml"
   }
 
+    provisioner "file" {
+    source      = "ansible/artifactory.yml"
+    destination = "/home/ubuntu/artifactory.yml"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "until cloud-init status --wait; do echo 'Waiting for cloud-init...'; sleep 5; done",
@@ -63,7 +68,6 @@ resource "aws_instance" "jenkins" {
       "export ANSIBLE_HOST_KEY_CHECKING=False",
       "ansible-playbook /home/ubuntu/jenkins.yml",
       "ansible-playbook /home/ubuntu/docker.yml",
-      //"ansible-playbook /home/ubuntu/sonarqube.yml",
       "ansible-playbook /home/ubuntu/kubernetes_minikube.yml"
     ]
   }
