@@ -34,4 +34,3 @@ La estructura principal del proyecto incluye los siguientes archivos y carpetas:
    ```bash
    terraform init
    terraform apply -auto-approve
-```
