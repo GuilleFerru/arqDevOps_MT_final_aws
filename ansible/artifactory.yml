@@ -1,37 +1,3 @@
-# version: '3'
-
-# services:
-#   artifactory:
-#     image: releases-docker.jfrog.io/jfrog/artifactory-pro:7.77.14  # Imagen actualizada de Artifactory OSS
-#     container_name: artifactory-oss
-#     environment:
-#       - ARTIFACTORY_HOME=/var/opt/jfrog/artifactory
-#       # - DB_TYPE=postgresql
-#       # - DB_HOST=artifactory_db
-#       # - DB_PORT=5432
-#       - DB_USER=artifactory
-#       - DB_PASSWORD=artifactory  # Cambia a una contraseña segura
-#     ports:
-#       - "8081:8081"  # Puerto para integrarse con Jenkins
-#       - "8082:8082"  # Puerto para el portal web de Artifactory
-#     volumes:
-#       - artifactory_data:/var/opt/jfrog/artifactory
-
-  # artifactory_db:
-  #   image: postgres:13
-  #   container_name: artifactory_db
-  #   environment:
-  #     - POSTGRES_USER=artifactory
-  #     - POSTGRES_PASSWORD=artifactory  # Asegúrate de que coincida con DB_PASSWORD
-  #     - POSTGRES_DB=artifactory
-  #   volumes:
-  #     - artifactory_db_data:/var/lib/postgresql/data
-
-# volumes:
-  # artifactory_data:
-  # artifactory_db_data:
-
-
 version: '3'
 
 services:
@@ -44,7 +10,7 @@ services:
       - "8081:8081"  # Puerto para la integración con Jenkins
       - "8082:8082"  # Puerto para el portal web de Artifactory
     volumes:
-      - artifactory_data:/var/opt/jfrog/artifactory  # Persistencia de datos de Artifactory
+      - artifactory_data:/var/opt/jfrog/artifactory
 
 volumes:
   artifactory_data:
